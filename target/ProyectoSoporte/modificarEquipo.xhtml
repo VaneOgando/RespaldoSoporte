@@ -1,0 +1,216 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="plantilla/plantilla.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<h:form id="modificarRecurso">
+			<div id="TituloRecurso">
+				<h1 style="text-align: center" > Modificar equipo </h1>
+			</div>
+
+			<div class="contenedorModificacion">
+				
+				<div id="Mensajes" class="mensajeModificacion">
+					<p:messages id="mensajesError" closable="true" globalOnly="true"/>
+					<p:messages id="mensajesValidacion" autoUpdate="true" closable="true" />
+				</div>
+
+				<div id="Detalle" class="detalleModificacion">
+
+						<p:panelGrid id="formularioModificacion" styleClass="font panelInventario" style="margin: 0 auto">
+							
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Número de Serie:" />
+								</p:column>
+
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.numSerie}"
+													disabled="true" readonly="true">
+									</p:inputText>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Nombre:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.nombre}"
+												 required="true" requiredMessage="Por favor indique un nombre"
+												 validatorMessage="El nombre no puede sobrepasar los 30 caracteres">
+										<f:validateLength maximum="30" />
+									</p:inputText>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Marca:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:selectOneMenu value="#{modificarEquipoBean.marca.nombre}" editable="true" style="width: 203px"
+													required="true" requiredMessage="Por favor indique una marca"
+													validatorMessage="La marca no puede sobrepasar los 30 caracteres">
+										<f:selectItems value="#{modificarEquipoBean.marcas}" var="marca"
+													   itemLabel="#{marca.nombre}" itemValue="#{marca.id}"/>
+										<f:validateLength maximum="30"/>
+										<p:ajax event="valueChange" listener="#{modificarEquipoBean.cargarModelos}" update=":modificarRecurso:modeloEquipo" />
+									</p:selectOneMenu>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Modelo:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:selectOneMenu id="modeloEquipo" value="#{modificarEquipoBean.modelo.nombre}" editable="true" style="width:203px;"
+													 required="true" requiredMessage="Por favor indique un modelo"
+													 validatorMessage="El modelo no puede sobrepasar los 30 caracteres">
+										<f:selectItems value="#{modificarEquipoBean.modelos}" var="modelo"
+													   itemLabel="#{modelo.nombre}" itemValue="#{modelo.id}"/>
+										<f:validateLength maximum="30"/>
+										</p:selectOneMenu>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Procesador:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.procesador}"
+												 required="true" requiredMessage="Por favor indique un procesador"
+												 validatorMessage="El procesador no puede sobrepasar los 30 caracteres">
+										<f:validateLength maximum="30" />
+									</p:inputText>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Memoria Ram:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.memoriaRam}"
+												 required="true" requiredMessage="Por favor indique la memoria ram"
+												 validatorMessage="La memoria ram no puede sobrepasar los 30 caracteres">
+										<f:validateLength maximum="30" />
+									</p:inputText>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Disco Duro:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.discoDuro}"
+												 required="true" requiredMessage="Por favor indique el disco duro"
+												 validatorMessage="El disco duro no puede sobrepasar los 30 caracteres">
+										<f:validateLength maximum="30" />
+									</p:inputText>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Sistema Operativo:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.equipo.sistOperativo}"
+												 required="true" requiredMessage="Por favor indique el sistema operativo"
+												 validatorMessage="El sistema operativo no puede sobrepasar los 30 caracteres">
+										<f:validateLength maximum="30" />
+									</p:inputText>
+									<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Caracteristicas:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputTextarea value="#{modificarEquipoBean.equipo.caracteristicas}" rows="3" cols="22" autoResize="false"
+													 counter="caractCaractE" maxlength="100" counterTemplate="{0} caracteres restantes."
+													 style="margin-right: 46px" />
+									<p:outputLabel id="caractCaractE" style="font-size: x-small"/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Fecha de adquisición:" />
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:calendar value="#{modificarEquipoBean.equipo.fechaCompra}" showOn="button" styleClass="labelCalendario inputCalendario inputPanelModificacion calPrimeModificacion"
+												pattern="dd/MM/yyyy" maxdate="#{modificarEquipoBean.fechaActual}" readonly="true" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Incidencia:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputText styleClass="anchoCompModificacion" value="#{modificarEquipoBean.incidencia}"
+												 validatorMessage="En número de incidencia debe contener únicamente números y no sobrepasar los 7 caracteres">
+										<f:validateRegex pattern="\d{1,7}"/>
+									</p:inputText>
+									<p:button icon="ui-icon-search" style="font-size: small" onclick=""/>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="colIzqModificacion">
+									<p:outputLabel value="Observación:"/>
+								</p:column>
+								<p:column styleClass="colDerModificacion">
+									<p:inputTextarea value="#{modificarEquipoBean.observacion}" rows="4" cols="22" autoResize="false"
+													 counter="observ_caractEquipo" maxlength="300" counterTemplate="{0} caracteres restantes."
+													 style="margin-right: 46px"
+													 required="true" requiredMessage="Por favor indique el motivo de la modificacion"/>
+										<p:outputLabel id="observ_caractEquipo" style="font-size: x-small"/>
+										<p:outputLabel value="*" styleClass="requerido"/>
+								</p:column>
+							</p:row>
+					
+						</p:panelGrid>
+
+				</div>
+
+			<div id="Botones" class="modificarBotonesGestion">
+
+				<p:panelGrid id="botones" styleClass="panelInventario botonesPanel" style="margin: 0 auto; font-size: small">
+					<p:row>
+						<p:column>
+							<h:commandButton id="modificar" value="Modificar" process="modificarRecurso"
+											 onclick="if (! confirm('Seguro desea modificar?')) return false" action="#{modificarEquipoBean.bt_modificar}" />
+						</p:column>
+						<p:column>
+							<h:commandButton id="cancelar" value="Cancelar" immediate="true"
+											 onclick="if (! confirm('Seguro desea cancelar?')) return false" action="#{modificarEquipoBean.bt_cancelar}"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</div>
+		</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

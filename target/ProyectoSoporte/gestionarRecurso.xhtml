@@ -1,0 +1,268 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="plantilla/plantilla.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<h:form id="gestionarRecurso">
+
+			<div id="tituloGestionRecurso">
+ 				<h1 style="text-align: center" > Gestionar recursos </h1>
+			</div>
+
+			<div class="contenedorGestion">
+
+				<div id="Recursos" class="botonesGestionRecurso">
+					<p:panelGrid id="seleccionGestionRecurso" styleClass="panelInventario" style="margin: 0 auto; font-size: small">
+
+						<p:row>
+							<p:column>
+								<p:selectOneButton id="gestionRecurso" value="#{gestionarRecursoBean.opcionGestion}"  style="height: 30px; font-size: small">
+									<f:selectItem itemLabel="Asignar" itemValue="A" />
+									<f:selectItem itemLabel="Devolver" itemValue="D" />
+									<p:ajax listener="#{gestionarRecursoBean.bt_limpiarGestion}" update="gestionarRecurso" />
+								</p:selectOneButton>
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</div>
+
+				<div id="Mensajes" class="mensajeGestion">
+					<p:messages id="mensajesError" closable="true" globalOnly="true" />
+					<p:messages id="mensajesValidacion" closable="true" />
+				</div>
+
+				<div id="Detalle" class="detalleGestion">
+
+					<p:panelGrid id="formularioGestion" styleClass="font panelInventario" style="margin: 0 auto">
+
+						<p:row>
+							<p:column styleClass="colIzqGestion">
+								<p:outputLabel value="Usuario:" />
+							</p:column>
+
+							<p:column styleClass="colDerGestion">
+								<p:inputText id="usuario" styleClass="anchoCompGestion" value="#{gestionarRecursoBean.historial.usuarioAsignado}"
+											 required="#{!empty param['aceptar']}" requiredMessage="Por favor indique un usuario"  readonly="#{facesContext.renderResponse }" />
+								<p:commandButton icon="ui-icon-search" style="font-size: small" immediate="true"
+										action="#{gestionarRecursoBean.buscarUsuarios}"/>
+								<p:outputLabel value="*" styleClass="requerido"/>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="colIzqGestion">
+								<p:outputLabel value="Equipo:"/>
+							</p:column>
+							<p:column styleClass="colDerGestion">
+								<p:inputText id="equipo" styleClass="anchoCompGestion" readonly="true"
+											 value="#{gestionarRecursoBean.equipo.numSerie}" />
+								<p:commandButton icon="ui-icon-search" style="font-size: small" immediate="true"
+												 action="#{gestionarRecursoBean.buscarEquipos}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="colIzqGestion">
+								<p:outputLabel value="Accesorios:"/>
+							</p:column>
+							<p:column styleClass="colDerGestion">
+								<p:selectManyMenu id="accesorios" styleClass="anchoCompManyMenu" scrollHeight="90" value="#{gestionarRecursoBean.accesoriosSeleccion}" >
+									<f:selectItems value="#{gestionarRecursoBean.accesoriosGestion}" var="accesorio" itemLabel="#{accesorio.nombre}" itemValue="#{accesorio.id}" />
+								</p:selectManyMenu>
+								<p:commandButton icon="ui-icon-plus" styleClass="botonGestionMas" style="font-size: small" immediate="true"
+												 action="#{gestionarRecursoBean.agregarAccesorios}"/>
+								<p:commandButton icon="ui-icon-minus" styleClass="botonGestionMenos" style="font-size: small"  process="@this accesorios"
+										action="#{gestionarRecursoBean.eliminarAccesorios}" update="gestionarRecurso:accesorios">
+								</p:commandButton>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="colIzqGestion">
+								<p:outputLabel value="Incidencia:"/>
+							</p:column>
+							<p:column styleClass="colDerGestion">
+								<p:inputText id="incidencia" styleClass="anchoCompGestion" value="#{gestionarRecursoBean.historial.idIncidencia}"
+											 validatorMessage="En número de incidencia debe contener únicamente números y no sobrepasar los 7 caracteres">
+									<f:validateRegex pattern="\d{1,7}" />
+								</p:inputText>
+								<p:button icon="ui-icon-search" style="font-size: small"/>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="colIzqGestion">
+								<p:outputLabel value="Observación:"/>
+							</p:column>
+							<p:column styleClass="colDerGestion">
+								<p:inputTextarea id="observacion" rows="4" cols="24" autoResize="false" counter="observ_caract" maxlength="300"
+												 counterTemplate="{0} caracteres restantes." style="margin-right: 46px"
+										required="#{!empty param['aceptar']}" requiredMessage="Por favor indique una observación"
+										value="#{gestionarRecursoBean.historial.descripcion}"/>
+								<p:outputLabel id="observ_caract" style="font-size: x-small"/>
+								<p:outputLabel value="*" styleClass="requerido"/>
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+
+				</div>
+
+				<div id="Botones" class="botonesGestionRecurso">
+
+					<p:panelGrid id="botones" styleClass="panelInventario botonesPanel" style="margin: 0 auto; font-size: small">
+						<p:row>
+							<p:column>
+								<h:commandButton id="aceptar" value="Aceptar" process="gestionarRecurso" ajax="false"
+												 onclick="if (! confirm('Seguro desea gestionar?')) return false"
+												 actionListener="#{gestionarRecursoBean.bt_gestionarRecurso}">
+								</h:commandButton>
+							</p:column>
+							<p:column>
+								<h:commandButton id="limpiar" value="Limpiar" action="#{gestionarRecursoBean.bt_limpiarGestion}" />
+							</p:column>
+							<p:column>
+								<h:commandButton id="cancelar" value="Cancelar" immediate="true"
+												 onclick="if (! confirm('Seguro desea cancelar? Se perderan los cambios')) return false" action="#{gestionarRecursoBean.bt_cancelar}" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+
+			</div>
+
+		</h:form>
+
+
+		<div id="dialogo">
+			<p:dialog id="recursosGestion" header="Por favor seleccione" widgetVar="dialogoRecursoGestion" closable="false" resizable="false" modal="true" width="80%" >
+				<h:form id="datatable">
+
+					<div id="MensajesDialogo" class="mensajeDialogoGestion">
+						<p:messages id="mensajesDialogo" closable="true" />
+					</div>
+
+					<p:panelGrid styleClass="panelInventario" style="width:100%;" >
+
+						<p:row>
+							<p:column colspan="2">
+
+								<p:dataTable id="datatableRecursos" var="item" value="#{gestionarRecursoBean.items}" rows="10" paginator="true" styleClass="datatable"
+											 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+											 widgetVar="itemTabla" emptyMessage="No se encontraron registros" filteredValue="#{gestionarRecursoBean.itemsBuscados}"
+											 selectionMode="single" selection="#{gestionarRecursoBean.itemSeleccionado}" rowKey="#{item.nombre}"
+											 tableStyle="table-layout: auto" >
+
+									<f:facet name="header">
+
+										<p:panelGrid style="height: 30px" styleClass="panelInventario" >
+
+											<p:row>
+												<p:column>
+													<p:inputText id="globalFilter" onkeyup="PF('itemTabla').filter()" style="width:150px; height: 30px; float: right;"/>
+													<h:outputText value="Buscar: " style="float: right; font-size: small; display: inline; padding-top: 8px;"/>
+												</p:column>
+											</p:row>
+										</p:panelGrid>
+
+									</f:facet>
+
+									<c:choose>
+
+										<c:when test="#{gestionarRecursoBean.opcionDatatable == 'U'}">
+											<p:column headerText="C.I" filterBy="#{item.id}" filterStyle="display: none"  >
+												<h:outputText value="#{item.id}" />
+											</p:column>
+
+											<p:column headerText="Nombre" filterBy="#{item.nombre}" filterStyle="display: none" >
+												<h:outputText value="#{item.nombre}" />
+											</p:column>
+										</c:when>
+
+										<c:when test="#{gestionarRecursoBean.opcionDatatable == 'E'}">
+
+											<p:column headerText="Num. de serie" filterBy="#{item.numSerie}" filterStyle="display: none"  >
+												<h:outputText value="#{item.numSerie}" />
+											</p:column>
+
+											<p:column headerText="Nombre" filterBy="#{item.nombre}" filterStyle="display: none" >
+												<h:outputText value="#{item.nombre}" />
+											</p:column>
+
+											<p:column headerText="Procesador" filterBy="#{item.procesador}" filterStyle="display:none">
+												<h:outputText value="#{item.procesador}" />
+											</p:column>
+
+											<p:column headerText="Memoria Ram" filterBy="#{item.memoriaRam}" filterStyle="display:none">
+												<h:outputText value="#{item.memoriaRam}" />
+											</p:column>
+
+											<p:column headerText="Marca" filterBy="#{item.modelo.marca.nombre}" filterStyle="display: none">
+												<h:outputText value="#{item.modelo.marca.nombre}" />
+											</p:column>
+
+											<p:column headerText="Modelo" filterBy="#{item.modelo.nombre}" filterStyle="display: none">
+												<h:outputText value="#{item.modelo.nombre}" />
+											</p:column>
+										</c:when>
+
+										<c:when test="#{gestionarRecursoBean.opcionDatatable == 'A'}">
+
+											<p:column headerText="ID" filterBy="#{item.id}" filterStyle="display:none" >
+												<h:outputText value="#{item.id}" />
+											</p:column>
+
+											<p:column headerText="Num. de Serie" filterBy="#{item.numSerie}" filterStyle="display:none">
+												<h:outputText value="#{item.numSerie}" rendered="#{item.numSerie != null}" />
+												<h:outputText value="N/A" rendered="#{item.numSerie == null}" />
+											</p:column>
+
+											<p:column headerText="Nombre" filterBy="#{item.nombre}" filterStyle="display:none">
+												<h:outputText value="#{item.nombre}" />
+											</p:column>
+
+											<p:column headerText="Categoria" filterBy="#{item.categoria.nombre}" filterStyle="display:none" >
+												<h:outputText value="#{item.categoria.nombre}" />
+											</p:column>
+
+											<p:column headerText="Marca" filterBy="#{item.modelo.marca.nombre}" filterStyle="display:none">
+												<h:outputText value="#{item.modelo.marca.nombre}" />
+											</p:column>
+
+											<p:column headerText="Modelo" filterBy="#{item.modelo.nombre}" filterStyle="display:none">
+												<h:outputText value="#{item.modelo.nombre}" />
+											</p:column>
+										</c:when>
+
+									</c:choose>
+
+								</p:dataTable>
+
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="btDialgAceptar">
+								<p:commandButton value="Aceptar" action="#{gestionarRecursoBean.bt_seleccionarRecurso}" />
+							</p:column>
+
+							<p:column styleClass="btDialgCancelar">
+								<p:commandButton value="Cancelar" immediate="true" onclick="PF('dialogoRecursoGestion').hide()" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</h:form>
+			</p:dialog>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

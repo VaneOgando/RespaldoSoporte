@@ -1,0 +1,55 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+
+		<h:head>
+			<script type="text/javascript" src="resources/js/metodosTCS.js"/>
+
+			<link rel="stylesheet" type="text/css" href="resources/css/estilosTCS.css" media="screen" />
+			<link rel="icon" type="image/png" href="resources/img/favicon.ico" />
+			<title>Inventario Soporte</title>
+		</h:head>
+
+		<h:body>
+
+			<div id="contenedor">
+
+				<div id="header">
+						<div id="logo">
+							<a href="#"><img src="resources/img/logo.png" width="200" height="70"/></a>
+						</div>
+
+					<div id="menu">
+						<h:form>
+							<p:tabMenu activeIndex="#{param.i}">
+								<p:menuitem value="Inventario" outcome="/consultarInventario.xhtml" >
+									<f:param name="i" value="0" />
+								</p:menuitem>
+								<p:menuitem value="Crear" outcome="/crearRecurso.xhtml">
+									<f:param name="i" value="1" />
+								</p:menuitem>
+								<p:menuitem value="Gestionar" outcome="/gestionarRecurso.xhtml">
+									<f:param name="i" value="2" />
+								</p:menuitem>
+
+							</p:tabMenu>
+						</h:form>
+					</div>
+
+				</div>
+
+				<div id="cuerpo">
+					<ui:insert name="cuerpo">
+					</ui:insert>
+				</div>
+
+				<div id="footer">
+					<span>T.C.S. TECHNOLOGY CONSULTING SOLUTION, C.A.. J-30774587-8</span>
+				</div>
+
+			</div>
+
+		</h:body>
+	</html>

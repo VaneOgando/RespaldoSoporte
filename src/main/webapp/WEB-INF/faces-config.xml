@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{inicioSesionBean.bt_ingresar_action}</from-action>
+			<from-outcome>consultarInventario</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/crearRecurso.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{crearRecursoBean.bt_crearRecurso}</from-action>
+			<from-outcome>Exito</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{crearRecursoBean.bt_crearRecurso}</from-action>
+			<from-outcome>Error</from-outcome>
+			<to-view-id>/crearRecurso.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{crearRecursoBean.bt_cancelar}</from-action>
+			<from-outcome>Cancelar</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/modificarEquipo.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{modificarEquipoBean.bt_modificar}</from-action>
+			<from-outcome>Exito</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/modificarAccesorio.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{modificarAccesorioBean.bt_modificar}</from-action>
+			<from-outcome>Exito</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/detalleEquipo.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{detalleEquipoBean.bt_eliminarEquipo}</from-action>
+			<from-outcome>Exito</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/detalleAccesorio.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{detalleAccesorioBean.bt_eliminarAccesorio}</from-action>
+			<from-outcome>Exito</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/gestionarRecurso.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{gestionarRecursoBean.bt_cancelar}</from-action>
+			<from-outcome>Cancelar</from-outcome>
+			<to-view-id>/consultarInventario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+
+
+
+
+</faces-config>

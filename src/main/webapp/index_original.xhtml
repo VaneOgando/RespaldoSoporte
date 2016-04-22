@@ -1,0 +1,21 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>Registrar equipo</title>
+	</h:head>
+	<h:form>
+		<p:growl id="messages"></p:growl>
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nombre:"></p:outputLabel>
+			<p:inputText value="#{inicioSesionBean_original.empleado.nombre}"></p:inputText>
+			<p:outputLabel value="Fecha de contratacion:"></p:outputLabel>
+			<p:calendar value="#{inicioSesionBean_original.empleado.fechaContratacion}"></p:calendar>
+			<p:outputLabel value="Salario:"></p:outputLabel>
+			<p:inputText value="#{inicioSesionBean_original.empleado.salario}"></p:inputText>
+		</p:panelGrid>
+		<p:commandButton value="Registrar" action="#{inicioSesionBean_original.registrar}" update="messages"></p:commandButton>
+	</h:form>
+	</html>

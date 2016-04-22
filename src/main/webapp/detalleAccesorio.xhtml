@@ -1,0 +1,284 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="plantilla/plantilla.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<f:metadata>
+			<f:viewParam name="id" value="#{detalleAccesorioBean.accesorio.id}" required="true"/>
+			<f:event type="preRenderView" listener="#{detalleAccesorioBean.cargarDetalleAccesorio}"/>
+		</f:metadata>
+
+		<h1 style="text-align: center"> Detalle del accesorio #{detalleAccesorioBean.accesorio.nombre}</h1>
+
+		<div class="contenedorDetalle">
+
+			<div id="Mensajes" class="mensajeDetalle">
+				<p:messages id="mensajesError" closable="true" />
+			</div>
+
+			<div class="detalleDiv">
+
+				<p:panelGrid styleClass="font panelInventario">
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Id de Accesorio:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.id}"/>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Num de serie:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.numSerie}" rendered="#{detalleAccesorioBean.accesorio.numSerie != null}"/>
+							<h:outputText value="N/A" rendered="#{detalleAccesorioBean.accesorio.numSerie == null}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Categoría:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.categoria.nombre}"/>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Características:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.caracteristicas}" rendered="#{detalleAccesorioBean.accesorio.caracteristicas != null}"/>
+							<h:outputText value="N/A" rendered="#{detalleAccesorioBean.accesorio.caracteristicas == null}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Fecha de adquisición:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.fechaCompra}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+							</h:outputLabel>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+			</div>
+
+			<div class="detalleDiv">
+				<p:panelGrid styleClass="font panelInventario">
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Marca:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.modelo.marca.nombre}"/>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Modelo:"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.modelo.nombre}"/>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Estado:" />
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.accesorio.estado.nombre}"/>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="panelColumnaIzq">
+							<h:outputLabel value="Usuario:" rendered="#{detalleAccesorioBean.asignado}"/>
+						</p:column>
+						<p:column styleClass="panelColumnaDer">
+							<h:outputLabel value="#{detalleAccesorioBean.usuario}" rendered="#{detalleAccesorioBean.asignado}"/>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+			</div>
+
+			<div id="botonesGestion" class="detalleBotonesGestion">
+
+				<p:panelGrid id="botones" styleClass="panelInventario botonesPanel" style="margin: 0 auto; font-size: small">
+					<p:row>
+						<p:column>
+							<p:commandButton id="modificar" value="Modificar" immediate="true" action="#{detalleAccesorioBean.bt_modificarAccesorio}" update="mensajesError" >
+								<f:param name="id" value="#{detalleAccesorioBean.accesorio.id}" />
+							</p:commandButton>
+						</p:column>
+						<p:column>
+							<p:commandButton id="cambiarEstado" value="Cambiar estado" immediate="true" action="#{detalleAccesorioBean.validarEstado}"
+											 onclick="if (!confirm('esta seguro? esta accion puede ser ireversible')) return false" update="mensajesError dialogoCambioEstado" />
+						</p:column>
+						<p:column rendered="#{detalleAccesorioBean.asignado || detalleAccesorioBean.disponible}">
+							<p:commandButton id="asignar" value="Asignar" rendered="#{detalleAccesorioBean.disponible}" immediate="true" action="gestionarRecurso.xhtml">
+								<f:param name="opcionGestion" value='A' />
+								<f:param name="opcionRecurso" value='A' />
+								<f:param name="id" value='#{detalleAccesorioBean.accesorio.id}' />
+							</p:commandButton>
+							<p:commandButton id="devolver" value="Devolver" rendered="#{detalleAccesorioBean.asignado}" immediate="true" action="gestionarRecurso.xhtml">
+								<f:param name="opcionGestion" value='D' />
+								<f:param name="opcionRecurso" value='A' />
+								<f:param name="id" value='#{detalleAccesorioBean.accesorio.id}' />
+							</p:commandButton>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+			</div>
+
+		</div>
+
+		<div id="detalleDialogoEstado">
+			<p:dialog id="dialogoCambioEstado" header="Por favor ingrese" widgetVar="dialogoCambioEstado" closable="false" resizable="false" modal="true" >
+				<h:form id="dialogo" >
+					<p:messages  for="estado" closable="true" autoUpdate="true" />
+					<p:messages  for="observacion" closable="true" autoUpdate="true" />
+
+					<p:panelGrid styleClass="panelInventario" >
+
+						<p:row>
+							<p:column styleClass="panelColumnaIzq">
+								<p:outputLabel value="Estado:"/>
+							</p:column>
+							<p:column styleClass="panelColumnaDer">
+								<p:selectOneMenu id="estado" value="#{detalleAccesorioBean.estadoACambiar.id}" style="width:203px;"
+												 required="true" requiredMessage="Por favor indique un estado">
+									<f:selectItems value="#{detalleAccesorioBean.estados}" var="estado"
+												   itemLabel="#{estado.nombre}" itemValue="#{estado.id}"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="*" styleClass="requerido"/>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="panelColumnaIzq">
+								<p:outputLabel value="Incidencia:"/>
+							</p:column>
+							<p:column styleClass="panelColumnaDer">
+								<p:inputText styleClass="anchoCompModificacion" value="#{detalleAccesorioBean.incidencia}"
+											 validatorMessage="En número de incidencia debe contener únicamente números y no sobrepasar los 7 caracteres">
+									<f:validateRegex pattern="\d{1,7}"/>
+								</p:inputText>
+								<p:button icon="ui-icon-search" style="font-size: small" onclick=""/>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="panelColumnaIzq">
+								<p:outputLabel value="Observación:"/>
+							</p:column>
+							<p:column styleClass="panelColumnaDer">
+								<p:inputTextarea id="observacion" value="#{detalleAccesorioBean.observacion}" rows="4" cols="22" autoResize="false"
+												 counter="observ_caractEquipo" maxlength="300" counterTemplate="{0} caracteres restantes."
+												 style="margin-right: 46px" required="true" requiredMessage="Por favor indique el motivo del cambio de estado"/>
+								<p:outputLabel id="observ_caractEquipo" style="font-size: x-small"/>
+								<p:outputLabel value="*" styleClass="requerido"/>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column style="text-align: right; font-size: small">
+								<p:commandButton value="Aceptar" action="#{detalleAccesorioBean.bt_cambiarEstado}" />
+							</p:column>
+
+							<p:column style="text-align: left; font-size: small">
+								<p:commandButton value="Cancelar" immediate="true" onclick="PF('dialogoCambioEstado').hide()" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+
+				</h:form>
+			</p:dialog>
+		</div>
+
+		<div>
+			<h:form id="datatable">
+				<p:dataTable id="Historial" var="item" value="#{detalleAccesorioBean.historial}" styleClass="datatable"
+							rows="15" paginator="true" rowsPerPageTemplate="10,15,25,50,100"
+							 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 widgetVar="itemTabla" emptyMessage="No se encontraron registros"
+							filteredValue="#{detalleAccesorioBean.itemsBuscados}" tableStyle="table-layout: auto">
+
+					<f:facet name="header">
+
+						<p:panelGrid style="height: 30px" styleClass="panelInventario" >
+
+							<p:row>
+								<p:column>
+									<p:outputLabel value="" style="font-size: medium; font-weight: bold;"/>
+								</p:column>
+
+								<p:column style="text-align: center">
+									<p:outputLabel value="Historial" style="font-size: medium; font-weight: bold;"/>
+								</p:column>
+
+								<p:column>
+									<p:inputText id="globalFilter" onkeyup="PF('itemTabla').filter()" style="width:150px; height: 30px; float: right;"/>
+									<h:outputText value="Buscar: " style="float: right; font-size: small; display: inline; padding-top: 8px;"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+
+					</f:facet>
+
+					<p:column headerText="Fecha" filterBy="#{item.fechaGestion}" filterStyle="display: none;" >
+						<h:outputText value="#{item.fechaGestion}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Tipo" filterBy="#{item.categoria.nombre}" filterStyle="display: none;">
+						<h:outputText value="#{item.categoria.nombre}" />
+					</p:column>
+
+					<p:column headerText="Descripción" filterBy="#{item.descripcion}" filterStyle="display:none">
+						<h:outputText value="#{item.descripcion}" />
+					</p:column>
+
+					<p:column headerText="Id incidencia" filterBy="#{item.idIncidencia}" filterStyle="display:none">
+						<h:outputText value="#{item.idIncidencia}" rendered="#{item.idIncidencia != null}" />
+						<h:outputText value="N/A" rendered="#{item.idIncidencia == null}" />
+					</p:column>
+
+					<p:column headerText="Usuario" filterBy="#{item.usuarioAsignado}" filterStyle="display:none">
+						<h:outputText value="#{item.usuarioAsignado}" rendered="#{item.usuarioAsignado != null}" />
+						<h:outputText value="N/A" rendered="#{item.usuarioAsignado == null}" />
+					</p:column>
+
+					<p:column headerText="Responsable" filterBy="#{item.responsableSoporte}" filterStyle="display:none">
+						<h:outputText value="#{item.responsableSoporte}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

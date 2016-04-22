@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prueba1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df693bea-0e3c-4239-a893-4832fec5c4e2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="95"/>
+	<subDataset name="dataset" whenResourceMissingType="Empty" uuid="aa61eaf4-3fb8-4096-ae73-bd4a51e07e01">
+		<field name="numSerie" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="usuarioAsignado" class="java.lang.String"/>
+	<parameter name="usuarioSoporte" class="java.lang.String"/>
+	<parameter name="accesorios" class="java.util.Collection"/>
+	<parameter name="fechaDia" class="java.lang.String"/>
+	<parameter name="fechaMes" class="java.lang.String"/>
+	<parameter name="fechaAnio" class="java.lang.String"/>
+	<parameter name="equipo" class="java.lang.Object" isForPrompting="false"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="233" y="74" width="100" height="20" uuid="8a8946cb-97d0-47f0-acea-39e5fe2d3553"/>
+				<text><![CDATA[Prueba de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="19" width="473" height="20" uuid="34cde32c-fe97-4c9b-bf70-c40dddc72166"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Caracas, " + $P{fechaDia} + " de "+ $P{fechaMes} +" de "+ $P{fechaAnio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="54" uuid="59f62607-1672-4fbd-88bf-9b9a863f06f6"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["	Yo, "+ $P{usuarioSoporte} +" le hago entrega a "+ $P{usuarioAsignado} +" de un equipo con las siguientes caracteristicas."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="145" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="189" height="20" uuid="19c2510a-f315-48e7-b1e5-e020c25057ba"/>
+				<textFieldExpression><![CDATA[$P{equipo}.getModelo().getNombre()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6c7f632b-6ca2-4520-a68e-071f3b0b208b"/>
+				<text><![CDATA[Num. de serie:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="f4bdd505-e807-49b3-aac0-1a4d919555f1"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="189" height="20" uuid="81210e97-b2f3-4a65-be25-1ccf29ebdf7e"/>
+				<textFieldExpression><![CDATA[$P{equipo}.getNombre()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="233" y="20" width="100" height="20" uuid="526764be-c897-4d78-b14e-2dc66edf72d0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{usuarioAsignado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="223" y="21" width="116" height="1" uuid="525817e7-8d05-4727-91ca-73f0b86a0e04"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

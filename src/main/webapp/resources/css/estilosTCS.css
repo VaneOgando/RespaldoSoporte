@@ -1,0 +1,323 @@
+/*ESTILOS CSS - TCS*/
+
+
+/*CLASES GLOBALES*/
+.requerido{
+    color: red;
+    padding-left: 5px;
+    font-size: larger;
+}
+
+.floatleft{
+    float:left;
+}
+
+.font {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.panelInventario tr, .panelInventario td{
+    background: none; border-style: none !important;
+}
+
+.botonesPanel .ui-panelgrid-cell{
+    padding: 3px; !important;
+}
+
+.datatable .ui-datatable-tablewrapper{
+    overflow: auto;
+}
+
+
+/*ETIQUETA*/
+html,
+body {
+    height: 100%;
+}
+
+
+/*ID*/
+#contenedor {
+    min-height: 100%;
+    position: relative;
+}
+
+#header {
+    width: 100%;
+    height: 120px;
+}
+
+#menu{
+    clear: both;
+}
+
+#cuerpo {
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-bottom: 25px; /* Tamaño del footer para evitar el sobreposicionamiento */
+}
+
+#footer {
+    width: 100%;
+    height: 25px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #666;
+}
+
+
+
+
+
+/*DETALLE RECURSO*/
+.contenedorDetalle{
+
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 2%;
+    display: table;
+}
+
+.mensajeDetalle{
+    margin: 0 auto;
+    width: 75%;
+    text-align: center;
+}
+
+.detalleDiv{
+
+    position: relative;
+    width: 50%;
+    float: left;
+    margin-bottom: 2%;
+    display: table-column;
+}
+
+.detalleBotonesGestion{
+    display: table-row;
+    margin-top: 3%;
+    border: none;
+}
+
+
+.panelColumnaIzq{
+    width: 250px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.panelColumnaDer {
+    width: 250px;
+    font-size: medium;
+}
+
+
+
+
+
+ /*CREAR RECURSO*/
+
+.contenedorCreacion{
+
+    overflow: hidden;
+    margin: 2% auto;
+    display: table;
+    width: 100%;
+}
+
+.mensajeCreacion{
+    margin: 0 auto;
+    width: 75%;
+    text-align: center;
+}
+
+.detalleCreacion{
+
+    position: relative;
+    margin: 3% auto;
+
+}
+
+.anchoCompCreacion{
+    width: 203px; !important;
+}
+
+.crearBotonesGestion{
+    display: table-row;
+    margin-top: 3%;
+    border: none;
+}
+
+.colIzqCreacion{
+    width: 200px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.colDerCreacion {
+    width: 250px;
+    font-size: medium;
+}
+
+.autoPrimeCreacion .ui-autocomplete-input{
+    width: 203px; !important;
+}
+
+.autoPrimeCreacion .ui-autocomplete-dropdown {
+    font-size: small; !important;
+}
+
+.calPrimeCreacion .ui-inputfield{
+   width: 203px; !important;
+}
+
+.calPrimeCreacion .ui-datepicker-trigger{
+    font-size: small; !important;
+}
+
+
+
+
+/*MODIFICAR RECURSO*/
+
+.contenedorModificacion{
+
+    overflow: hidden;
+    margin: 2% auto;
+    display: table;
+    width: 100%;
+}
+
+.mensajeModificacion{
+    margin: 0 auto;
+    width: 75%;
+    text-align: center;
+}
+
+.detalleModificacion{
+
+    position: relative;
+    margin: 3% auto;
+
+}
+
+.anchoCompModificacion{
+    width: 203px; !important;
+}
+
+.modificarBotonesGestion{
+    display: table-row;
+    margin-top: 3%;
+    border: none;
+}
+
+.colIzqModificacion{
+    width: 200px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.colDerModificacion{
+    width: 250px;
+    font-size: medium;
+}
+
+.autoPrimeModificacion .ui-autocomplete-input{
+    width: 203px; !important;
+}
+
+.autoPrimeModificacion .ui-autocomplete-dropdown {
+    font-size: small; !important;
+}
+
+.calPrimeModificacion .ui-inputfield{
+    width: 203px; !important;
+}
+
+.calPrimeModificacion .ui-datepicker-trigger{
+    font-size: small; !important;
+}
+
+
+
+
+
+/*GESTION RECURSO*/
+.contenedorGestion{
+
+    overflow: hidden;
+    margin: 2% auto;
+    display: table;
+    width: 100%;
+}
+
+.mensajeGestion{
+    margin: 0 auto;
+    width: 75%;
+    text-align: center;
+}
+
+.mensajeDialogoGestion{
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+
+.detalleGestion{
+    position: relative;
+    margin: 3% auto;
+}
+
+.anchoCompGestion{
+    width: 220px; !important;
+}
+
+.anchoCompManyMenu{
+    width: 215px; !important;
+    height: 90px;
+    float: left;
+}
+
+.botonGestionMas{
+    margin-top: 5%;
+    margin-bottom: 2.5%;
+}
+
+.botonGestionMenos{;
+    margin-top: 2.5%;
+    margin-bottom: 6%;
+}
+
+.botonesGestionRecurso{
+    display: table-row;
+    margin-top: 3%;
+    border: none;
+}
+
+.colIzqGestion{
+    width: 80px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.colDerGestion{
+    width: 280px;
+    font-size: medium;
+}
+
+.btDialgAceptar{
+    text-align: right;
+    font-size: small;
+    width: 50%;
+}
+
+.btDialgCancelar{
+    text-align: left;
+    font-size: small;
+    width: 50%;
+}
